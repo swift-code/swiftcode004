@@ -37,7 +37,7 @@ public class LoginForm {
     public List<ValidationError> validate(){
         List<ValidationError> errors = new ArrayList<>();
         User user = User.authenticate(email,password);
-        if (user !=null)
+        if (user ==null)
         {
             errors.add(new ValidationError("message","Password Wrong"));
             errors.add(new ValidationError("error","true"));
