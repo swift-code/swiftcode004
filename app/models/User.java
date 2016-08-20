@@ -45,5 +45,7 @@ public class User extends Model {
     )
     public Set<User> connections;
 
+    public static Finder<Long, User> find = new Finder<Long, User>(User.class);
+
 }
 
