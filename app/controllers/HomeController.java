@@ -60,6 +60,6 @@ public class HomeController extends Controller {
                     requestjson.put("connectionRequestId",x.id);
                     return requestjson;
                 }).collect(Collectors.toList())));
-        return ok();
+        return ok(data);
     }
 }
