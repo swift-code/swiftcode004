@@ -25,7 +25,7 @@ public class HomeController extends Controller {
     @Inject
     FormFactory formFactory;
 
-    public Result getprofile(Long userId) {
+    public Result getProfile(Long userId) {
         User user = User.find.byId(userId);
         Profile profile = Profile.find.byId(user.profile.id);
         ObjectNode data = objectMapper.createObjectNode();

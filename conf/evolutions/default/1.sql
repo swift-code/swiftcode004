@@ -13,18 +13,19 @@ create table connection_request (
 ;
 
 create table profile (
-  first_name                varchar(255) not null,
+  id                        bigint auto_increment not null,
+  first_name                varchar(255),
   last_name                 varchar(255),
   company                   varchar(255),
-  constraint pk_profile primary key (first_name))
+  constraint pk_profile primary key (id))
 ;
 
 create table user (
   id                        bigint auto_increment not null,
   email                     varchar(255),
   password                  varchar(255),
-  profile_first_name        varchar(255),
-  constraint uq_user_profile_first_name unique (profile_first_name),
+  profile_id                bigint,
+  constraint uq_user_profile_id unique (profile_id),
   constraint pk_user primary key (id))
 ;
 
@@ -38,8 +39,8 @@ alter table connection_request add constraint fk_connection_request_sender_1 for
 create index ix_connection_request_sender_1 on connection_request (sender_id);
 alter table connection_request add constraint fk_connection_request_receiver_2 foreign key (receiver_id) references user (id) on delete restrict on update restrict;
 create index ix_connection_request_receiver_2 on connection_request (receiver_id);
-alter table user add constraint fk_user_profile_3 foreign key (profile_first_name) references profile (first_name) on delete restrict on update restrict;
-create index ix_user_profile_3 on user (profile_first_name);
+alter table user add constraint fk_user_profile_3 foreign key (profile_id) references profile (id) on delete restrict on update restrict;
+create index ix_user_profile_3 on user (profile_id);
 
 
 
