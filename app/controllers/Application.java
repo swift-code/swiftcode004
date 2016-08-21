@@ -21,16 +21,12 @@ public class Application extends Controller {
     @Inject
     FormFactory formFactory;
 
-
     @Inject
     ObjectMapper objectMapper;
 
-
     public Result signup(){
-
         Form<SignupForm> form = formFactory.form(SignupForm.class).bindFromRequest();
-        if(form.hasErrors())
-        {
+        if(form.hasErrors()) {
             return ok(form.errorsAsJson());
         }
         Profile profile = new Profile(form.data().get("firstName"),form.data().get("lastName"));
@@ -43,14 +39,11 @@ public class Application extends Controller {
         return ok((JsonNode) objectMapper.valueToTree(user));
     }
 
-
-
-    public Result login(){
+    public Result login() {
         Form<LoginForm> form = formFactory.form(LoginForm.class).bindFromRequest();
         if(form.hasErrors()){
             return ok(form.errorsAsJson());
         }
         return ok();
     }
-
 }
