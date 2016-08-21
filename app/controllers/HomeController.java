@@ -48,6 +48,18 @@ public class HomeController extends Controller {
             connectionjson.put("lastName",connectedprofile.lastName);
             return connectionjson;
         }).collect(Collectors.toList())));
+
+        data.set("connectionRequestsReceived",objectMapper.valueToTree(user.connectionRequestsReceived.stream()
+                .map(x -> {
+                    User requestor = User.find.byId(x.sender.id);
+                    Profile requestorProfile = Profile.find.byId(requestor.profile.id);
+                    ObjectNode requestjson = objectMapper.createObjectNode();
+                    requestjson.put("email",requestor.email);
+                    requestjson.put("firstName",requestorProfile.firstName);
+                    requestjson.put("lastName",requestorProfile.lastName);
+                    requestjson.put("connectionRequestId",x.id);
+                    return requestjson;
+                }).collect(Collectors.toList())));
         return ok();
     }
 }
