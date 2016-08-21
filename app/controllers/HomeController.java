@@ -38,6 +38,16 @@ public class HomeController extends Controller {
                     userJson.put("id",x.id);
                     return userJson;
                 }).collect(Collectors.toList())));
+        data.set("connections",objectMapper.valueToTree(user.connections.stream()
+        .map(x -> {
+            User connectedUser = User.find.byId(x.id);
+            Profile connectedprofile = Profile.find.byId(connectedUser.profile.id);
+            ObjectNode connectionjson = objectMapper.createObjectNode();
+            connectionjson.put("email",connectedUser.email);
+            connectionjson.put("firstName",connectedprofile.firstName);
+            connectionjson.put("lastName",connectedprofile.lastName);
+            return connectionjson;
+        }).collect(Collectors.toList())));
         return ok();
     }
 }
