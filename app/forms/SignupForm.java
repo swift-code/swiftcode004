@@ -28,15 +28,16 @@ public class SignupForm {
 
     public List<ValidationError> validate(){
         List<ValidationError> errors = new ArrayList<>();
-        User user = User.find.where().eq("email",email).findUnique();
+        User user = User.authenticate(email,password);
         if (user !=null)
         {
-            errors.add(new ValidationError("message","Email already exists"));
+            errors.add(new ValidationError("message","email already"));
             errors.add(new ValidationError("error","true"));
         }
 
         return errors;
     }
+
 
 
 

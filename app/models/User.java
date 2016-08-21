@@ -13,6 +13,9 @@ import java.util.Set;
 @Entity
 public class User extends Model {
 
+
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long id;
@@ -55,6 +58,13 @@ public class User extends Model {
             return user;
         }
         return null;
+    }
+
+
+    public User(String email,String password){
+
+        this.email = email;
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
 }
 
